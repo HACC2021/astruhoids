@@ -7,12 +7,16 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import BSIcon from '../components/BSIcon';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => (
   <Navbar bg="dark" variant='dark'>
     <Container fluid>
-      <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">Pet Pickup</Navbar.Brand>
+      <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">
+        Pet Pickup
+        <BSIcon icon={{ name: "cart3", width: 16, height: 16 }}></BSIcon>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="justify-content-end">
         <Nav className="mr-auto">
