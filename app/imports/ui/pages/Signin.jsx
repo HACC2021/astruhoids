@@ -40,9 +40,9 @@ const Signin = ({ location }) => {
       <Container>
         <Row md className="mt-4">
           <Col md={{ span: 6, offset: 3 }}>
-            <Card>
+            <Card className="text-center">
               <Card.Body>
-                <Card.Title className="mb-3" >Login to Pet Pickup</Card.Title>
+                <Card.Title className="mb-3">Sign In</Card.Title>
                 <Form onSubmit={submit}>
                   <FloatingLabel
                     controlId={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
@@ -51,12 +51,18 @@ const Signin = ({ location }) => {
                   >
                     <Form.Control type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
                   </FloatingLabel>
-                  <FloatingLabel controlId={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD} label="Password">
+                  <FloatingLabel
+                    controlId={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}
+                    label="Password"
+                    className="mb-3"
+                  >
                     <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
                   </FloatingLabel>
-                  <Button variant="primary" type="submit" className="mt-3">
-                Sign In
-                  </Button>
+                  <div className="d-grid gap-2">
+                    <Button variant="primary" type="submit" fluid>
+                      Sign In
+                    </Button>
+                  </div>
                 </Form>
               </Card.Body>
             </Card>
