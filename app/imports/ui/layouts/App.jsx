@@ -8,14 +8,14 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
+import Signin from '../pages/Signin';
 // import ListStuff from '../pages/ListStuff';
 // import ListStuffAdmin from '../pages/ListStuffAdmin';
 // import AddStuff from '../pages/AddStuff';
 // import EditStuff from '../pages/EditStuff';
 // import NotFound from '../pages/NotFound';
-// import Signin from '../pages/Signin';
 // import Signup from '../pages/Signup';
-// import Signout from '../pages/Signout';
+import Signout from '../pages/Signout';
 // import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -28,9 +28,9 @@ class App extends React.Component {
           <NavBar/>
           <Switch>
             <Route exact path="/" component={Landing}/>
-            {/* <Route path="/signin" component={Signin}/> */}
+            <Route path="/signin" component={Signin}/>
+            <Route path="/signout" component={Signout}/>
             {/* <Route path="/signup" component={Signup}/> */}
-            {/* <Route path="/signout" component={Signout}/> */}
             {/* <ProtectedRoute path="/list" component={ListStuff}/> */}
             {/* <ProtectedRoute path="/add" component={AddStuff}/> */}
             {/* <ProtectedRoute path="/edit/:_id" component={EditStuff}/> */}

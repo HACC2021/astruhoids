@@ -40,7 +40,7 @@ const NavBar = ({ currentUser }) => (
           </Nav>
         ) : (
           <Nav className="float-right">
-            <NavDropdown title={(<span>{this.props.currentUser}&nbsp;</span>)} align='end'>
+            <NavDropdown title={(<span>{currentUser}&nbsp;</span>)} align='end'>
               <NavDropdown.Item as={NavLink} exact to="/signout">
                   Sign Out
               </NavDropdown.Item>
