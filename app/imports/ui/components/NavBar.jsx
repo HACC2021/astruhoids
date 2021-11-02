@@ -15,11 +15,10 @@ const NavBar = ({ currentUser }) => (
     <Container fluid>
       <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">
         Pet Pickup
-        <BSIcon icon={{ name: "cart3", width: 16, height: 16 }}></BSIcon>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse className="justify-content-end">
-        <Nav className="mr-auto">
+      <Navbar.Collapse className="basic-navbar-nav">
+        <Nav className="me-auto">
           {currentUser ? (
             [<Nav.Link id={COMPONENT_IDS.NAVBAR_ADD_STUFF} as={NavLink} activeClassName="active" exact to="/add" key='add'>PAGE</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_LIST_STUFF} as={NavLink} activeClassName="active" exact to="/list" key='list'>PAGE</Nav.Link>]
@@ -33,20 +32,23 @@ const NavBar = ({ currentUser }) => (
         </Nav>
         {currentUser === '' ? (
           <Nav className="float-right">
-            <NavDropdown title={(<span>Login&nbsp;</span>)} align='end'>
+            <NavDropdown title="Login" align='end' id="nav-dropdown">
               <NavDropdown.Item as={NavLink} exact to="/signin">
+                <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }}></BSIcon>
                 &nbsp;Sign In
               </NavDropdown.Item>
               <NavDropdown.Item as={NavLink} exact to="/signup">
-                Sign Up
+                <BSIcon icon={{ name: 'person-plus', width: 16, height: 16 }}></BSIcon>
+                &nbsp;Sign Up
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         ) : (
           <Nav className="float-right">
-            <NavDropdown title={(<span>{this.props.currentUser}&nbsp;</span>)} align='end'>
+            <NavDropdown title={(<span>{currentUser}&nbsp;</span>)} align='end'>
               <NavDropdown.Item as={NavLink} exact to="/signout">
-                  Sign Out
+                <BSIcon icon={{ name: 'box-arrow-right', width: 16, height: 16 }}></BSIcon>
+                &nbsp;Sign Out
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

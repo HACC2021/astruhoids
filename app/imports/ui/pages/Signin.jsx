@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
-import { PAGE_IDS } from '../utilities/PageIDs';
+import { Container, Form, FloatingLabel, Col, Row, Alert, Button, Card } from 'react-bootstrap';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -16,20 +16,6 @@ const Signin = ({ location }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToReferer] = useState(false);
-
-  // Update the form controls each time the user interacts with them.
-  const handleChange = (e, { name, value }) => {
-    switch (name) {
-    case 'email':
-      setEmail(value);
-      break;
-    case 'password':
-      setPassword(value);
-      break;
-    default:
-      // do nothing.
-    }
-  };
 
   // Handle Signin submission using Meteor's account mechanism.
   const submit = () => {
@@ -43,7 +29,6 @@ const Signin = ({ location }) => {
     });
   };
 
-  // Render the signin form.
   const { from } = location.state || { from: { pathname: '/' } };
   // if correct authentication, redirect to page instead of login screen
   if (redirectToReferer) {
@@ -51,51 +36,49 @@ const Signin = ({ location }) => {
   }
   // Otherwise return the Login form.
   return (
-    <Container id={PAGE_IDS.SIGN_IN}>
-      <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-        <Grid.Column>
-          <Header as="h2" textAlign="center">
-            Login to your account
-          </Header>
-          <Form onSubmit={submit}>
-            <Segment stacked>
-              <Form.Input
-                label="Email"
-                id={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
-                icon="user"
-                iconPosition="left"
-                name="email"
-                type="email"
-                placeholder="E-mail address"
-                onChange={handleChange}
-              />
-              <Form.Input
-                label="Password"
-                id={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}
-                icon="lock"
-                iconPosition="left"
-                name="password"
-                placeholder="Password"
-                type="password"
-                onChange={handleChange}
-              />
-              <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Submit" />
-            </Segment>
-          </Form>
-          <Message>
-            <Link to="/signup">Click here to Register</Link>
-          </Message>
-          {error === '' ? (
-            ''
-          ) : (
-            <Message
-              error
-              header="Login was not successful"
-              content={error}
-            />
-          )}
-        </Grid.Column>
-      </Grid>
+    <Container className="d-flex" fluid id={PAGE_IDS.SIGN_IN}>
+      <Container>
+        <Row md className="mt-4">
+          <Col md={{ span: 6, offset: 3 }}>
+            <Card className="text-center">
+              <Card.Body>
+                <Card.Title className="mb-3">Sign In</Card.Title>
+                <Form onSubmit={submit}>
+                  <FloatingLabel
+                    controlId={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
+                    label="Email address"
+                    className="mb-3"
+                  >
+                    <Form.Control type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}
+                    label="Password"
+                    className="mb-3"
+                  >
+                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+                  </FloatingLabel>
+                  <div className="d-grid gap-2">
+                    <Button variant="primary" type="submit" fluid>
+                      Sign In
+                    </Button>
+                  </div>
+                </Form>
+              </Card.Body>
+            </Card>
+            <Alert variant="success" className="mt-3">
+              <Link to="/signup">Click here to Register</Link>
+            </Alert>
+            {error === '' ? (
+              ''
+            ) : (
+              <Alert variant="danger" className="">
+                Login failed - incorrect user or password
+              </Alert>
+            )}
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 };
