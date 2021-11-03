@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Grid, Image } from 'semantic-ui-react';
 import { Image } from 'react-bootstrap';
-import { PAGE_IDS } from '../utilities/PageIDs';
+// import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
