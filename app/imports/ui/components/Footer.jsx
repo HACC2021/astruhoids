@@ -1,17 +1,20 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = () => {
   const divStyle = { paddingTop: '15px' };
+  const linkStyle = { textDecoration: 'none' };
   return (
     <footer>
-      <div style={divStyle} className="ui center aligned container">
+      <Container fluid style={divStyle} className="text-center">
         <hr />
-        Department of Information and Computer Sciences <br />
+        <a href="https://devpost.com/software/astruhoids" target="_blank" rel=" noopener noreferrer" style={linkStyle}>
+          AstrUHoids<br />
+        </a>
         University of Hawaii<br />
         Honolulu, HI 96822 <br />
-        <a href="http://ics-software-engineering.github.io/matrp">Template Home Page</a>
-      </div>
+      </Container>
     </footer>
   );
 };
