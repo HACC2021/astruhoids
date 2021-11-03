@@ -34,7 +34,7 @@ const Signup = ({ location }) => {
     return <Redirect to={from} />;
   }
   return (
-    <Container className="d-flex" fluid id={PAGE_IDS.SIGN_IN}>
+    <Container className="d-flex" fluid id={PAGE_IDS.SIGN_UP}>
       <Container>
         <Row md className="mt-4">
           <Col md={{ span: 6, offset: 3 }}>

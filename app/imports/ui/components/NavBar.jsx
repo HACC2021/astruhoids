@@ -34,11 +34,11 @@ const NavBar = ({ currentUser }) => (
           <Nav className="float-right">
             <NavDropdown title="Login" align='end' id="nav-dropdown">
               <NavDropdown.Item as={NavLink} exact to="/signin">
-                <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }}></BSIcon>
+                <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} />
                 &nbsp;Sign In
               </NavDropdown.Item>
               <NavDropdown.Item as={NavLink} exact to="/signup">
-                <BSIcon icon={{ name: 'person-plus', width: 16, height: 16 }}></BSIcon>
+                <BSIcon icon={{ name: 'person-plus', width: 16, height: 16 }} />
                 &nbsp;Sign Up
               </NavDropdown.Item>
             </NavDropdown>
