@@ -43,6 +43,13 @@ const Signin = ({ location }) => {
             <Card className="text-center">
               <Card.Body>
                 <Card.Title className="mb-3">Sign In</Card.Title>
+                {error === '' ? (
+                  ''
+                ) : (
+                  <Alert variant="danger" className="">
+                      ERROR - {error}
+                  </Alert>
+                )}
                 <Form onSubmit={submit}>
                   <FloatingLabel
                     controlId={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
@@ -59,23 +66,16 @@ const Signin = ({ location }) => {
                     <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
                   </FloatingLabel>
                   <div className="d-grid gap-2">
-                    <Button variant="primary" type="submit" fluid>
+                    <Button variant="success" type="submit" fluid>
                       Sign In
                     </Button>
                   </div>
                 </Form>
               </Card.Body>
+              <Card.Footer>
+                <Link to="/signup">Dont have an account?</Link>
+              </Card.Footer>
             </Card>
-            <Alert variant="success" className="mt-3">
-              <Link to="/signup">Click here to Register</Link>
-            </Alert>
-            {error === '' ? (
-              ''
-            ) : (
-              <Alert variant="danger" className="">
-                Login failed - incorrect user or password
-              </Alert>
-            )}
           </Col>
         </Row>
       </Container>

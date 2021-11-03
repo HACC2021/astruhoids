@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Container, Form, FloatingLabel, Col, Row, Alert, Button, Card } from 'react-bootstrap';
 import { Accounts } from 'meteor/accounts-base';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -14,20 +14,6 @@ const Signup = ({ location }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToReferer] = useState(false);
-
-  // Update the form controls each time the user interacts with them.
-  const handleChange = (e, { name, value }) => {
-    switch (name) {
-    case 'email':
-      setEmail(value);
-      break;
-    case 'password':
-      setPassword(value);
-      break;
-    default:
-      // do nothing.
-    }
-  };
 
   /* Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   const submit = () => {
@@ -42,57 +28,55 @@ const Signup = ({ location }) => {
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
-  const { from } = location.state || { from: { pathname: '/add' } };
+  const { from } = location.state || { from: { pathname: '/' } };
   // if correct authentication, redirect to from: page instead of signup screen
   if (redirectToReferer) {
     return <Redirect to={from} />;
   }
   return (
-    <Container id={PAGE_IDS.SIGN_UP}>
-      <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-        <Grid.Column>
-          <Header as="h2" textAlign="center">
-            Register your account
-          </Header>
-          <Form onSubmit={submit}>
-            <Segment stacked>
-              <Form.Input
-                label="Email"
-                id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
-                icon="user"
-                iconPosition="left"
-                name="email"
-                type="email"
-                placeholder="E-mail address"
-                onChange={handleChange}
-              />
-              <Form.Input
-                label="Password"
-                id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
-                icon="lock"
-                iconPosition="left"
-                name="password"
-                placeholder="Password"
-                type="password"
-                onChange={handleChange}
-              />
-              <Form.Button id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} content="Submit" />
-            </Segment>
-          </Form>
-          <Message>
-            Already have an account? Login <Link to="/signin">here</Link>
-          </Message>
-          {error === '' ? (
-            ''
-          ) : (
-            <Message
-              error
-              header="Registration was not successful"
-              content={error}
-            />
-          )}
-        </Grid.Column>
-      </Grid>
+    <Container className="d-flex" fluid id={PAGE_IDS.SIGN_IN}>
+      <Container>
+        <Row md className="mt-4">
+          <Col md={{ span: 6, offset: 3 }}>
+            <Card className="text-center">
+              <Card.Body>
+                <Card.Title className="mb-3">Sign Up</Card.Title>
+                {error === '' ? (
+                  ''
+                ) : (
+                  <Alert variant="danger" className="">
+                      ERROR - {error}
+                  </Alert>
+                )}
+                <Form onSubmit={submit}>
+                  <FloatingLabel
+                    controlId={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
+                    label="Email address"
+                    className="mb-3"
+                  >
+                    <Form.Control type="email" placeholder="name@example.com" onChange={e => setEmail(e.target.value)}/>
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
+                    label="Password"
+                    className="mb-3"
+                  >
+                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+                  </FloatingLabel>
+                  <div className="d-grid gap-2">
+                    <Button variant="success" type="submit" fluid>
+                      Sign Up
+                    </Button>
+                  </div>
+                </Form>
+              </Card.Body>
+              <Card.Footer>
+                Have an account?<Link to="/signin">&nbsp;Sign in</Link>
+              </Card.Footer>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 };
