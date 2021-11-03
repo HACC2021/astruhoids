@@ -11,11 +11,11 @@ import Landing from '../pages/Landing';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+import NotFound from '../pages/NotFound';
 // import ListStuff from '../pages/ListStuff';
 // import ListStuffAdmin from '../pages/ListStuffAdmin';
 // import AddStuff from '../pages/AddStuff';
 // import EditStuff from '../pages/EditStuff';
-// import NotFound from '../pages/NotFound';
 // import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -36,7 +36,7 @@ class App extends React.Component {
             {/* <ProtectedRoute path="/edit/:_id" component={EditStuff}/> */}
             {/* <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/> */}
             {/* <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/> */}
-            {/* <Route component={NotFound}/> */}
+            <Route component={NotFound}/>
           </Switch>
           <Footer/>
         </div>
