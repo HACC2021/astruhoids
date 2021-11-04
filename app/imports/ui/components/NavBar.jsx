@@ -14,7 +14,7 @@ const NavBar = ({ currentUser }) => (
   <Navbar bg="dark" variant='dark'>
     <Container fluid>
       <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">
-        Pet Pickup
+        Animal Quarantine - Pet Pickup
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="basic-navbar-nav">
@@ -32,12 +32,12 @@ const NavBar = ({ currentUser }) => (
         </Nav>
         {currentUser === '' ? (
           <Nav className="float-right">
-            <NavDropdown title="Login" align='end' id="nav-dropdown">
-              <NavDropdown.Item as={NavLink} exact to="/signin">
+            <NavDropdown title="Sign In " align='end' id="nav-dropdown">
+              <NavDropdown.Item as={NavLink} exact to="/signin" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN}>
                 <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} />
                 &nbsp;Sign In
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} exact to="/signup">
+              <NavDropdown.Item as={NavLink} exact to="/signup" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP}>
                 <BSIcon icon={{ name: 'person-plus', width: 16, height: 16 }} />
                 &nbsp;Sign Up
               </NavDropdown.Item>
@@ -45,9 +45,9 @@ const NavBar = ({ currentUser }) => (
           </Nav>
         ) : (
           <Nav className="float-right">
-            <NavDropdown title={(<span>{currentUser}&nbsp;</span>)} align='end'>
-              <NavDropdown.Item as={NavLink} exact to="/signout">
-                <BSIcon icon={{ name: 'box-arrow-right', width: 16, height: 16 }}></BSIcon>
+            <NavDropdown title={(<span>{currentUser}&nbsp;</span>)} align='end' id={COMPONENT_IDS.NAVBAR_CURRENT_USER}>
+              <NavDropdown.Item as={NavLink} exact to="/signout" id={COMPONENT_IDS.NAVBAR_SIGN_OUT}>
+                <BSIcon icon={{ name: 'box-arrow-right', width: 16, height: 16 }} />
                 &nbsp;Sign Out
               </NavDropdown.Item>
             </NavDropdown>
@@ -59,8 +59,7 @@ const NavBar = ({ currentUser }) => (
 );
 
 // Declare the types of all properties.
-NavBar.propTypes =
-{
+NavBar.propTypes = {
   currentUser: PropTypes.string,
 };
 
