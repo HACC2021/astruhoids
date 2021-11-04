@@ -11,7 +11,7 @@ import BSIcon from '../components/BSIcon';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => (
-  <Navbar bg="dark" variant='dark'>
+  <Navbar bg="primary" variant='dark'>
     <Container fluid>
       <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">
         Animal Quarantine - Pet Pickup
@@ -32,7 +32,7 @@ const NavBar = ({ currentUser }) => (
         </Nav>
         {currentUser === '' ? (
           <Nav className="float-right">
-            <NavDropdown title="Sign In " align='end' id="nav-dropdown">
+            <NavDropdown title="Sign In " align='end'>
               <NavDropdown.Item as={NavLink} exact to="/signin" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN}>
                 <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} />
                 &nbsp;Sign In
