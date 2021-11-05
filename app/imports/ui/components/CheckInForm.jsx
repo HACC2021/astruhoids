@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Col, Row, Form, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { CheckIn } from '../../api/checkin/CheckinCollection';
@@ -8,6 +9,7 @@ const CheckInForm = () => {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [redirectTo, setRedirectTo] = useState(false);
 
   /**
    * Takes in user input for their mobile number and formats it to be reader friendly
@@ -16,7 +18,7 @@ const CheckInForm = () => {
   const phoneNumberHandler = (num) => {
     // If what is typed is not a number or hyphen, replace with empty string
     let formatted = num.replace(/[^0-9|-]/g, '');
-    // Once the number is filled out, set the hyphens appropraitely
+    // Once the number is filled out, set the hyphens appropriately
     formatted = formatted.replace(/(\d{3})-{0,1}(\d{3})-{0,1}(\d{4})/g, '$1-$2-$3');
     setNumber(formatted);
   };
@@ -31,8 +33,15 @@ const CheckInForm = () => {
       .catch(e => swal('Error', e.message, 'error'))
       .then(() => {
         swal('Success', 'You have been checked in', 'success');
+        setRedirectTo(true);
       });
+
   };
+
+  // On success, redirect user to success page
+  if (redirectTo) {
+    return <Redirect to={'/successfulcheckin'}/>;
+  }
 
   return (
     <Card>
