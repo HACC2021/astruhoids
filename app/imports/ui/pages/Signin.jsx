@@ -66,15 +66,16 @@ const Signin = ({ location }) => {
                     <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
                   </FloatingLabel>
                   <div className="d-grid gap-2">
-                    <Button variant="success" type="submit" fluid>
+                    <Button variant="primary" type="submit">
                       Sign In
                     </Button>
                   </div>
                 </Form>
+                <hr />
+                <Card.Text>
+                  <Link to="/signup">Dont have an account?</Link>
+                </Card.Text>
               </Card.Body>
-              <Card.Footer>
-                <Link to="/signup">Dont have an account?</Link>
-              </Card.Footer>
             </Card>
           </Col>
         </Row>
