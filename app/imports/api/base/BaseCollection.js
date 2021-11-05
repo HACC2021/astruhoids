@@ -175,6 +175,10 @@ class BaseCollection {
 
   assertRole(userId, roles) {
     // console.log(userId, roles, Roles.userIsInRole(userId, roles));
+    // This is when a user checks in which requires no signup
+    if (userId === null && roles === null) {
+      return true;
+    }
     if (!userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in.');
     } else if (!Roles.userIsInRole(userId, roles)) {

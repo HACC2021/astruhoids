@@ -1,17 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
-import { ROLE } from '../role/Role';
 
 export const checkinPublication = {
-  checkIn: 'CheckIn',
+  checkin: 'CheckIn',
 };
 
 class CheckinCollection extends BaseCollection {
   constructor() {
-    super('Checkins', new SimpleSchema({
+    super('CheckIn', new SimpleSchema({
       firstName: String,
       phoneNumber: String,
       email: String,
@@ -70,49 +68,37 @@ class CheckinCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the stuff associated to an owner.
+   * It publishes the entire collection.
    */
   publish() {
     if (Meteor.isServer) {
-      // get the StuffCollection instance.
+      // get the CheckinCollection instance.
       const instance = this;
-      /** This subscription publishes only the documents associated with the logged in user */
-      Meteor.publish(checkinPublication.checkIn, function publish() {
-        if (this.userId) {
-          const username = Meteor.users.findOne(this.userId).username;
-          return instance._collection.find({ owner: username });
-        }
-        return this.ready();
-      });
-
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-      Meteor.publish(checkinPublication.checkIn, function publish() {
-        if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
-          return instance._collection.find();
-        }
-        return this.ready();
+      /** This subscription publishes the documents  */
+      Meteor.publish(checkinPublication.checkin, function publish() {
+        return instance._collection.find({});
       });
     }
   }
 
   /**
-   * Subscription method for stuff owned by the current user.
+   * Subscription method for CheckIn.
    */
   subscribeCheckIn() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(checkinPublication.checkIn);
+      return Meteor.subscribe(checkinPublication.checkin);
     }
     return null;
   }
 
   /**
-   * Default implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin or User.
+   * Modified implementation of assertValidRoleForMethod. Asserts the userId and role to be null for clients picking up their
+   * pet without having to sign-up.
    * This is used in the define, update, and removeIt Meteor methods associated with each class.
-   * @param userId The userId of the logged in user. Can be null or undefined
-   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
+   * @return Boolean which will be true for clients picking up their pets
    */
-  assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+  assertValidRoleForMethod() {
+    this.assertRole(null, null);
   }
 
   /**
@@ -132,4 +118,4 @@ class CheckinCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Checkins = new CheckinCollection();
+export const CheckIn = new CheckinCollection();
