@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { CheckIn } from '../../api/checkin/CheckinCollection';
+import { checkedInEmail } from '../utilities/EmailTemplates';
 
 const CheckInForm = () => {
   const [number, setNumber] = useState('');
@@ -38,7 +39,7 @@ const CheckInForm = () => {
       to: email,
       from: 'astruhoids@gmail.com',
       subject: 'Department of Agriculture',
-      text: `Hello ${name},\n You have successfully checked-in for your animal's release. We will send an email and call you phone: ${number} when your animal(s) are ready to be picked up.`,
+      html: checkedInEmail(name, number),
     });
   };
 

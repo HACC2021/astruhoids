@@ -7,16 +7,18 @@ import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
 import SimpleSchema from 'simpl-schema';
 
+process.env.MAIL_URL = `smtps://${Meteor.settings.email.user}:${Meteor.settings.email.password}@smtp.gmail.com:465`;
+
 Meteor.methods({
-  'sendEmail'({ to, from, subject, text }) {
+  'sendEmail'({ to, from, subject, html }) {
     new SimpleSchema({
       to: { type: String },
       from: { type: String },
       subject: { type: String },
-      text: { type: String },
-    }).validate({ to, from, subject, text });
+      html: { type: String },
+    }).validate({ to, from, subject, html });
     this.unblock();
 
-    Email.send({ to, from, subject, text });
+    Email.send({ to, from, subject, html });
   },
 });
