@@ -7,9 +7,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { CheckIn } from '../../api/checkin/CheckinCollection';
 import ViewCheckInRow from '../components/ViewCheckInRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import BSIcon from '../components/BSIcon';
 
 /** Page for users to view who is checked in and verify that they are checked in  */
-const ViewCheckIn = ({ ready, checkIns }) => {
+const ViewCheckIn = ({ ready, checkIns, isAdmin }) => {
   return (ready) ? (
     <Container id={PAGE_IDS.VIEW_CHECK_INS}>
       <Row md className="mt-4">
@@ -34,6 +35,19 @@ const ViewCheckIn = ({ ready, checkIns }) => {
                 <thead>
                   <tr>
                     <th className="h4">Check-in ID</th>
+                    {(isAdmin) ? (
+                      // Add extra table headers for viewing email, phone number, and options if admin
+                      <>
+                        <th className="h4">Email</th>
+                        <th className="h4">Phone</th>
+                        <th className="h4">
+                          <BSIcon icon={{ name: 'list', width: 26, height: 26}}/>
+                        </th>
+                      </>
+                    ) : (
+                      // Do not add extra table headers if non-admin
+                      <></>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -61,6 +75,7 @@ const ViewCheckIn = ({ ready, checkIns }) => {
 ViewCheckIn.propTypes = {
   ready: PropTypes.bool.isRequired,
   checkIns: PropTypes.array.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 
 export default withTracker(() => {
