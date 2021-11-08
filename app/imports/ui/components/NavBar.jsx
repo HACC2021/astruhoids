@@ -19,7 +19,11 @@ const NavBar = ({ currentUser }) => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="basic-navbar-nav">
         <Nav className="me-auto">
-          {currentUser ? (
+          {(
+            [<Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_CHECK_INS} as={NavLink} activeClassName="active" 
+              exact to="/view" key='view'>View Check-Ins</Nav.Link>]
+          )}
+          {/* {currentUser ? (
             [<Nav.Link id={COMPONENT_IDS.NAVBAR_ADD_STUFF} as={NavLink} activeClassName="active" exact to="/add" key='add'>PAGE</Nav.Link>,
               <Nav.Link id={COMPONENT_IDS.NAVBAR_LIST_STUFF} as={NavLink} activeClassName="active" exact to="/list" key='list'>PAGE</Nav.Link>]
           ) : ''}
@@ -28,10 +32,10 @@ const NavBar = ({ currentUser }) => (
               <NavDropdown title='dropdown' id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} text="Manage" key="manage-dropdown">
                 <NavDropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} exact to="/manage-database" content="Database">PAGE</NavDropdown.Item>
               </NavDropdown>]
-          ) : ''}
+          ) : ''} */}
         </Nav>
         {currentUser === '' ? (
-          <Nav className="float-right">
+          <Nav className="float-end">
             <NavDropdown title="Sign In " align='end'>
               <NavDropdown.Item as={NavLink} exact to="/signin" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN}>
                 <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} />
@@ -44,7 +48,7 @@ const NavBar = ({ currentUser }) => (
             </NavDropdown>
           </Nav>
         ) : (
-          <Nav className="float-right">
+          <Nav className="float-end">
             <NavDropdown title={(<span>{currentUser}&nbsp;</span>)} align='end' id={COMPONENT_IDS.NAVBAR_CURRENT_USER}>
               <NavDropdown.Item as={NavLink} exact to="/signout" id={COMPONENT_IDS.NAVBAR_SIGN_OUT}>
                 <BSIcon icon={{ name: 'box-arrow-right', width: 16, height: 16 }} />

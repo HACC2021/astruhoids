@@ -10,4 +10,5 @@ export const PAGE_IDS = {
   SIGN_IN: 'sigin-in',
   SIGN_OUT: 'sign-out',
   SIGN_UP: 'sign-up',
+  VIEW_CHECK_INS: 'view-check-ins',
 };

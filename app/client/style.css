@@ -4,3 +4,8 @@
 body {
     font-family: Montserrat, sans-serif !important;
 }
+
+.id-padding {
+    padding-top: .375rem;
+    padding-bottom: .375rem;
+}

@@ -20,6 +20,7 @@ import NotFound from '../pages/NotFound';
 import { ROLE } from '../../api/role/Role';
 import ChatbotAQ from '../components/ChatbotAQ';
 import SuccessfulCheckIn from '../pages/SuccessfulCheckIn';
+import ViewCheckIn from '../pages/ViewCheckIn';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -30,6 +31,7 @@ class App extends React.Component {
           <NavBar/>
           <Switch>
             <Route exact path="/" component={Landing}/>
+            <Route exact path="/view" component={ViewCheckIn}/>
             <Route path="/signin" component={Signin}/>
             <Route path="/signout" component={Signout}/>
             <Route path="/signup" component={Signup}/>
