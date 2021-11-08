@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Col, Row, Form, Button } from 'react-bootstrap';
+import { Card, Container, Col, Row, Form, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
@@ -52,53 +52,59 @@ const CheckInForm = () => {
   }
 
   return (
-    <Card>
-      <Card.Header><h2>Check-In</h2></Card.Header>
-      <Card.Body>
-        <Form onSubmit={(e) => submitHandler(e)}>
-          <Row>
-            <Form.Group className='mb-3' as={Col} md={4} >
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                required
-                type='text'
-                placeholder='FirstName'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className='mb-3' as={Col} md={4} >
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                required
-                type='email'
-                placeholder='example@foo.com'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className='mb-3' as={Col} md={4} >
-              <Form.Label>Phone</Form.Label>
-              <Form.Control
-                required
-                type='tel'
-                pattern={'[0-9]{3}-[0-9]{3}-[0-9]{4}'}
-                placeholder='XXX-XXX-XXXX'
-                maxLength={12}
-                value={number}
-                onChange={e => phoneNumberHandler(e.target.value)}
-              />
-            </Form.Group>
-          </Row>
-          <Row>
+    <Container>
+      <Row md className="mt-4">
+        <Col md>
+          <Card>
+            <Card.Header className="h2">Check-In</Card.Header>
+            <Card.Body>
+              <Form onSubmit={(e) => submitHandler(e)}>
+                <Row>
+                  <Form.Group className='mb-3' as={Col} md={4} >
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      required
+                      type='text'
+                      placeholder='FirstName'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-3' as={Col} md={4} >
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      required
+                      type='email'
+                      placeholder='example@foo.com'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-3' as={Col} md={4} >
+                    <Form.Label>Phone</Form.Label>
+                    <Form.Control
+                      required
+                      type='tel'
+                      pattern={'[0-9]{3}-[0-9]{3}-[0-9]{4}'}
+                      placeholder='XXX-XXX-XXXX'
+                      maxLength={12}
+                      value={number}
+                      onChange={e => phoneNumberHandler(e.target.value)}
+                    />
+                  </Form.Group>
+                </Row>
+                <Row>
 
-          </Row>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+                </Row>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
