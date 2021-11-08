@@ -16,7 +16,8 @@ const Signup = ({ location }) => {
   const [redirectToReferer, setRedirectToReferer] = useState(false);
 
   /* Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
-  const submit = () => {
+  const submit = (e) => {
+    e.preventDefault();
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
         setError(err.reason);
@@ -48,7 +49,7 @@ const Signup = ({ location }) => {
                       ERROR - {error}
                   </Alert>
                 )}
-                <Form onSubmit={submit}>
+                <Form onSubmit={e => submit(e)}>
                   <FloatingLabel
                     controlId={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
                     label="Email address"

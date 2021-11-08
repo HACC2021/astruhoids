@@ -18,7 +18,8 @@ const Signin = ({ location }) => {
   const [redirectToReferer, setRedirectToReferer] = useState(false);
 
   // Handle Signin submission using Meteor's account mechanism.
-  const submit = () => {
+  const submit = (e) => {
+    e.preventDefault();
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         setError(err.reason);
@@ -50,7 +51,7 @@ const Signin = ({ location }) => {
                       ERROR - {error}
                   </Alert>
                 )}
-                <Form onSubmit={submit}>
+                <Form onSubmit={e => submit(e)}>
                   <FloatingLabel
                     controlId={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
                     label="Email address"
