@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Card, Col, Row, Form, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
+import { Meteor } from 'meteor/meteor';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { CheckIn } from '../../api/checkin/CheckinCollection';
+import { checkedInEmail } from '../utilities/EmailTemplates';
 
 const CheckInForm = () => {
   const [number, setNumber] = useState('');
@@ -36,6 +38,12 @@ const CheckInForm = () => {
         setRedirectTo(true);
       });
 
+    Meteor.call('sendEmail', {
+      to: email,
+      from: 'astruhoids@gmail.com',
+      subject: 'Department of Agriculture',
+      html: checkedInEmail(name, number),
+    });
   };
 
   // On success, redirect user to success page
