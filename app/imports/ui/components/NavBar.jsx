@@ -12,7 +12,7 @@ import BSIcon from '../components/BSIcon';
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => (
   <Navbar bg="primary" variant='dark'>
-    <Container fluid>
+    <Container>
       <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">
         Animal Quarantine - Pet Pickup
       </Navbar.Brand>
