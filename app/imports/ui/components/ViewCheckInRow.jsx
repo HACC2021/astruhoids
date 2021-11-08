@@ -35,13 +35,10 @@ const ViewCheckInRow = ({ ownerInfo }) => {
 
 							<Dropdown.Menu>
 								<Dropdown.Item href="#/action-1">
-									Action
+									Send notification email
 								</Dropdown.Item>
 								<Dropdown.Item href="#/action-2">
-									Another action
-								</Dropdown.Item>
-								<Dropdown.Item href="#/action-3">
-									Something else
+									Clear
 								</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
