@@ -11,6 +11,7 @@ const CheckInForm = () => {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [checkInID, setCheckInID] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
 
   /**
@@ -33,22 +34,28 @@ const CheckInForm = () => {
 
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(e => swal('Error', e.message, 'error'))
-      .then(() => {
+      .then((_id) => {
+        // Set checkInID to be passed when redirecting
+        setCheckInID(`${name}-${_id.substring(0, 4)}`);
         swal('Success', 'You have been checked in', 'success');
         setRedirectTo(true);
       });
 
-    Meteor.call('sendEmail', {
-      to: email,
-      from: 'astruhoids@gmail.com',
-      subject: 'Department of Agriculture',
-      html: checkedInEmail(name, number),
-    });
+    // Meteor.call('sendEmail', {
+    //   to: email,
+    //   from: 'astruhoids@gmail.com',
+    //   subject: 'Department of Agriculture',
+    //   html: checkedInEmail(name, number),
+    // });
   };
 
   // On success, redirect user to success page
   if (redirectTo) {
-    return <Redirect to={'/successfulcheckin'}/>;
+    // return <Redirect to={'/successfulcheckin'} useState/>;
+    return <Redirect to={{
+      pathname: "/successfulcheckin",
+      state: { checkInID: checkInID }
+    }}/>
   }
 
   return (
