@@ -66,10 +66,22 @@ const ViewCheckInRow = ({ ownerInfo }) => {
               </div>
             </Col>
           ) : (
-            // If not ready for pickup, show nothing
-            <></>
+            // Not ready for pickup
+            <>
+              {(!isAdmin) ? (
+                // If not ready for pickup, and non-admin, show checked-in status
+                <Col sm>
+                  <div className="float-end">
+                    <Button variant="outline-secondary" className="no-click">
+                      Checked-in
+                    </Button>
+                  </div>
+                </Col>
+              ) : (
+                <></>
+              )}
+            </>
           )}
-
         </Row>
         <div>
         </div>
