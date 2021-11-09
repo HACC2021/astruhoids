@@ -5,17 +5,22 @@ import { COMPONENT_IDS } from "../utilities/ComponentIDs";
 import { updateMethod, removeItMethod } from '../../api/base/BaseCollection.methods';
 import { CheckIn } from "../../api/checkin/CheckinCollection";
 import swal from "sweetalert";
+import BSIcon from "./BSIcon";
 
 /** Renders a single row in the ViewCheckIns table. */
 const ViewCheckInRow = ({ ownerInfo }) => {
-  const ownerID = `${ownerInfo.firstName}-${ownerInfo._id.substring(0, 4)}`; 
+  // Owner ID as seen on the /view table
+  const ownerID = `${ownerInfo.firstName}-${ownerInfo._id.substring(0, 4)}`;
+
+  // If the owner's pet has been cleared for pickup
+  const canPickup = ownerInfo.status === 'Ready for pickup';
 
   const sendReadyEmail = () => {
     const collectionName = CheckIn.getCollectionName();
     const updateData = { id: ownerInfo._id, status: 'Ready for pickup'};
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `Notification sent to "${ownerID}"`, 'success'));
+      .then(() => swal('Owner will be notified', `Notification will be sent to "${ownerID}"`, 'success'));
     // TODO: Send email
   };
 
@@ -23,15 +28,36 @@ const ViewCheckInRow = ({ ownerInfo }) => {
     const collectionName = CheckIn.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance: ownerInfo._id })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `Deleted Check-in ID "${ownerID}"`, 'success'));
+      .then(() => swal('Deletion Success', `Deleted Check-in ID "${ownerID}"`, 'success'));
   };
 
 	return (
 		<tr className={COMPONENT_IDS.VIEW_CHECK_IN_ROW}>
 			<td className="h5">
-				<div className="td-padding">
-					{ownerID}
-				</div>
+        <Row sm>
+          <Col sm>
+            <div className={`td-padding ${canPickup ? 'fw-bold' : ''}`}>
+              {ownerID}
+            </div>
+          </Col>
+          {(canPickup) ? (
+            // Show button to signify that owner can pickup their pet
+            <Col sm>
+              <div className="float-end">
+                <Button variant="success" className="no-click">
+                  Ready for pickup&nbsp;
+                  <BSIcon icon={{ name: 'check-lg', width: 20, height: 20 }}/>
+                </Button>
+              </div>
+            </Col>
+          ) : (
+            // If not ready for pickup, show nothing
+            <></>
+          )}
+
+        </Row>
+        <div>
+        </div>
 			</td>
 
 			{ownerInfo.email ? (
@@ -53,11 +79,19 @@ const ViewCheckInRow = ({ ownerInfo }) => {
 							</Dropdown.Toggle>
 
 							<Dropdown.Menu>
-								<Dropdown.Item 
-                  onClick={() => sendReadyEmail()}
-                >
-									Send ready email
-								</Dropdown.Item>
+                {(canPickup) ? (
+                  // Do not give the option if notification was already sent
+                  <></>
+                ) : (
+                  // If pet is not ready for pickup, allow admins to notify owner that pickup is ready
+                  <>
+                    <Dropdown.Item 
+                      onClick={() => sendReadyEmail()}
+                    >
+                      Send ready email
+                    </Dropdown.Item>
+                  </>
+                )}
 								<Dropdown.Item 
                   onClick={() => deleteEntry()}
                 >

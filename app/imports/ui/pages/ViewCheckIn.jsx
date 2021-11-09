@@ -23,8 +23,12 @@ const ViewCheckIn = ({ ready, checkIns, isAdmin }) => {
             <Card.Body>
               <p>
                 Currently checked-in users are displayed below. If you are checked-in, you will
-                be contacted when your pet has been cleared for release. If you have any questions
-                please check out our helpful chat-bot at the bottom-right of this page.
+                be contacted via email when your pet has been cleared for release. 
+                The table below will also indicate if your pet is ready for pick up.
+              </p>
+              <p>
+                If you have any questions please check out our helpful chat-bot at
+                the bottom-right of this page.
               </p>
               <p><strong>
                 Note: Check-in order does not correspond to a queue order. The Department of
