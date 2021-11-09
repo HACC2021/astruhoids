@@ -11,6 +11,7 @@ import BSIcon from '../components/BSIcon';
 
 /** Page for users to view who is checked in and verify that they are checked in  */
 const ViewCheckIn = ({ ready, checkIns, isAdmin }) => {
+  
   return (ready) ? (
     <Container id={PAGE_IDS.VIEW_CHECK_INS}>
       <Row md className="mt-4">
@@ -85,12 +86,12 @@ export default withTracker(() => {
 
   // If user is admin, get all fields from Mongo
   // If no user is logged in or user is not admin, only fetch fields '_id' and 'firstName'
-  const selectFields = (isAdmin) ? {} : { '_id': 1, 'firstName': 1 };
+  const selectFields = (isAdmin) ? {} : { '_id': 1, 'firstName': 1, 'status': 1 };
 
   const checkIns = CheckIn.find({}, {
     // Sort by firstName
     sort: { firstName: 1 },
-    // Only include _id and firstName (excludes email and phoneNumber)
+    // Only include _id, firstName, status (excludes email and phoneNumber)
     fields: selectFields
   }).fetch();
 
