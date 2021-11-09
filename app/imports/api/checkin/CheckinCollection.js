@@ -7,12 +7,19 @@ export const checkinPublication = {
   checkin: 'CheckIn',
 };
 
+export const statuses = ['Checked-in', 'Ready for pickup']
+
 class CheckinCollection extends BaseCollection {
   constructor() {
     super('CheckIn', new SimpleSchema({
       firstName: String,
       phoneNumber: String,
       email: String,
+      status: {
+        type: String,
+        allowedValues: statuses,
+        defaultValue: 'Checked-in',
+      },
     }));
   }
 
@@ -21,13 +28,15 @@ class CheckinCollection extends BaseCollection {
    * @param firstName the name of the owner.
    * @param phoneNumber the owner's phone number.
    * @param email the owner's email.
+   * @param status the status.
    * @return {String} the docID of the new document.
    */
-  define({ firstName, phoneNumber, email }) {
+  define({ firstName, phoneNumber, email, status }) {
     const docID = this._collection.insert({
       firstName,
       phoneNumber,
       email,
+      status,
     });
     return docID;
   }
@@ -38,8 +47,9 @@ class CheckinCollection extends BaseCollection {
    * @param firstName the new owner's name (optional).
    * @param phoneNumber the new phoneNumber (optional).
    * @param email the new email (optional).
+   * @param status the status (optional).
    */
-  update(docID, { firstName, phoneNumber, email }) {
+  update(docID, { firstName, phoneNumber, email, status }) {
     const updateData = {};
     if (firstName) {
       updateData.firstName = firstName;
@@ -49,6 +59,10 @@ class CheckinCollection extends BaseCollection {
     }
     if (email) {
       updateData.email = email;
+    }
+
+    if (status) {
+      updateData.status = status;
     }
 
     this._collection.update(docID, { $set: updateData });
@@ -111,7 +125,8 @@ class CheckinCollection extends BaseCollection {
     const firstName = doc.firstName;
     const phoneNumber = doc.phoneNumber;
     const email = doc.email;
-    return { firstName, phoneNumber, email };
+    const status = doc.status;
+    return { firstName, phoneNumber, email, status };
   }
 }
 
