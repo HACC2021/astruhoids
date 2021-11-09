@@ -9,3 +9,7 @@ body {
     padding-top: .375rem;
     padding-bottom: .375rem;
 }
+
+.no-click {
+    pointer-events: none;
+}
