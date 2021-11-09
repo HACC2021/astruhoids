@@ -17,6 +17,9 @@ const ViewCheckInRow = ({ ownerInfo }) => {
   // If the owner's pet has been cleared for pickup
   const canPickup = ownerInfo.status === 'Ready for pickup';
 
+  // If logged in user is admin. Email field is only passed when user viewing page is admin
+  const isAdmin = ownerInfo.email ? true : false;
+
   const sendReadyEmail = () => {
     const collectionName = CheckIn.getCollectionName();
     const updateData = { id: ownerInfo._id, status: 'Ready for pickup' };
@@ -52,7 +55,12 @@ const ViewCheckInRow = ({ ownerInfo }) => {
             <Col sm>
               <div className="float-end">
                 <Button variant="success" className="no-click">
-                  Ready for pickup&nbsp;
+                  {(isAdmin) ? (
+                    // Change button text depending if user is admin or normal user
+                    <>Notified</>
+                  ) : (
+                    <>Ready for pickup</>
+                  )}&nbsp;
                   <BSIcon icon={{ name: 'check-lg', width: 20, height: 20 }}/>
                 </Button>
               </div>
@@ -67,9 +75,8 @@ const ViewCheckInRow = ({ ownerInfo }) => {
         </div>
       </td>
 
-      {ownerInfo.email ? (
-      // Append admin options if email field is included.
-      // This field is only passed when the logged-in user is an admin
+      {isAdmin ? (
+      // Append admin options if user is admin
         <>
           <td className="h5">
             <div className="td-padding">{ownerInfo.email}</div>
