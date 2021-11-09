@@ -1,11 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button, Row, Col, Dropdown } from "react-bootstrap";
-import { COMPONENT_IDS } from "../utilities/ComponentIDs";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button, Row, Col, Dropdown } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
+import swal from 'sweetalert';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { updateMethod, removeItMethod } from '../../api/base/BaseCollection.methods';
-import { CheckIn } from "../../api/checkin/CheckinCollection";
-import swal from "sweetalert";
-import BSIcon from "./BSIcon";
+import { CheckIn } from '../../api/checkin/CheckinCollection';
+import BSIcon from './BSIcon';
+import { animalReadyEmail } from '../utilities/EmailTemplates';
 
 /** Renders a single row in the ViewCheckIns table. */
 const ViewCheckInRow = ({ ownerInfo }) => {
@@ -17,11 +19,16 @@ const ViewCheckInRow = ({ ownerInfo }) => {
 
   const sendReadyEmail = () => {
     const collectionName = CheckIn.getCollectionName();
-    const updateData = { id: ownerInfo._id, status: 'Ready for pickup'};
+    const updateData = { id: ownerInfo._id, status: 'Ready for pickup' };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Owner will be notified', `Notification will be sent to "${ownerID}"`, 'success'));
-    // TODO: Send email
+    Meteor.call('sendEmail', {
+      to: ownerInfo.email,
+      from: 'astruhoids@gmail.com',
+      subject: 'Department of Agriculture',
+      html: animalReadyEmail(ownerInfo.firstName),
+    });
   };
 
   const deleteEntry = () => {
@@ -31,9 +38,9 @@ const ViewCheckInRow = ({ ownerInfo }) => {
       .then(() => swal('Deletion Success', `Deleted Check-in ID "${ownerID}"`, 'success'));
   };
 
-	return (
-		<tr className={COMPONENT_IDS.VIEW_CHECK_IN_ROW}>
-			<td className="h5">
+  return (
+    <tr className={COMPONENT_IDS.VIEW_CHECK_IN_ROW}>
+      <td className="h5">
         <Row sm>
           <Col sm>
             <div className={`td-padding ${canPickup ? 'fw-bold' : ''}`}>
@@ -58,65 +65,66 @@ const ViewCheckInRow = ({ ownerInfo }) => {
         </Row>
         <div>
         </div>
-			</td>
+      </td>
 
-			{ownerInfo.email ? (
-				// Append admin options if email field is included.
-				// This field is only passed when the logged-in user is an admin
-				<>
-					<td className="h5">
-						<div className="td-padding">{ownerInfo.email}</div>
-					</td>
-					<td className="h5">
-						<div className="td-padding">
-							{ownerInfo.phoneNumber}
-						</div>
-					</td>
-					<td className="h5">
-						<Dropdown>
-							<Dropdown.Toggle variant="outline-primary">
-								Options
-							</Dropdown.Toggle>
+      {ownerInfo.email ? (
+      // Append admin options if email field is included.
+      // This field is only passed when the logged-in user is an admin
+        <>
+          <td className="h5">
+            <div className="td-padding">{ownerInfo.email}</div>
+          </td>
+          <td className="h5">
+            <div className="td-padding">
+              {ownerInfo.phoneNumber}
+            </div>
+          </td>
+          <td className="h5">
+            <Dropdown>
+              <Dropdown.Toggle variant="outline-primary">
+                Options
+              </Dropdown.Toggle>
 
-							<Dropdown.Menu>
+              <Dropdown.Menu>
                 {(canPickup) ? (
                   // Do not give the option if notification was already sent
                   <></>
                 ) : (
                   // If pet is not ready for pickup, allow admins to notify owner that pickup is ready
                   <>
-                    <Dropdown.Item 
+                    <Dropdown.Item
                       onClick={() => sendReadyEmail()}
                     >
                       Send ready email
                     </Dropdown.Item>
                   </>
                 )}
-								<Dropdown.Item 
+                <Dropdown.Item
                   onClick={() => deleteEntry()}
                 >
-									Delete
-								</Dropdown.Item>
-							</Dropdown.Menu>
-						</Dropdown>
-					</td>
-				</>
-			) : (
-				// Append nothing if not admin
-				<></>
-			)}
-		</tr>
-	);
+                  Delete
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </td>
+        </>
+      ) : (
+      // Append nothing if not admin
+        <></>
+      )}
+    </tr>
+  );
 };
 
 // Require a document to be passed to this component.
 ViewCheckInRow.propTypes = {
-	ownerInfo: PropTypes.shape({
-		_id: PropTypes.string.isRequired,
-		firstName: PropTypes.string.isRequired,
-		email: PropTypes.string,
-		phoneNumber: PropTypes.string,
-	}).isRequired,
+  ownerInfo: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    status: PropTypes.string,
+  }).isRequired,
 };
 
 export default ViewCheckInRow;

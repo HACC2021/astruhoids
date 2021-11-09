@@ -7,7 +7,9 @@ import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
 import SimpleSchema from 'simpl-schema';
 
-process.env.MAIL_URL = `smtps://${Meteor.settings.email.user}:${Meteor.settings.email.password}@smtp.gmail.com:465`;
+if (Meteor.settings.email.enabled) {
+  process.env.MAIL_URL = `smtps://${Meteor.settings.email.user}:${Meteor.settings.email.password}@smtp.gmail.com:465`;
+}
 
 Meteor.methods({
   'sendEmail'({ to, from, subject, html }) {

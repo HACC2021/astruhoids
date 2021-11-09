@@ -41,21 +41,21 @@ const CheckInForm = () => {
         setRedirectTo(true);
       });
 
-    // Meteor.call('sendEmail', {
-    //   to: email,
-    //   from: 'astruhoids@gmail.com',
-    //   subject: 'Department of Agriculture',
-    //   html: checkedInEmail(name, number),
-    // });
+    Meteor.call('sendEmail', {
+      to: email,
+      from: 'astruhoids@gmail.com',
+      subject: 'Department of Agriculture',
+      html: checkedInEmail(name, number),
+    });
   };
 
   // On success, redirect user to success page
   if (redirectTo) {
     // return <Redirect to={'/successfulcheckin'} useState/>;
     return <Redirect to={{
-      pathname: "/successfulcheckin",
-      state: { checkInID: checkInID }
-    }}/>
+      pathname: '/successfulcheckin',
+      state: { checkInID: checkInID },
+    }}/>;
   }
 
   return (
