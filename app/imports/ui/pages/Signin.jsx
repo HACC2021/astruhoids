@@ -43,7 +43,15 @@ const Signin = ({ location }) => {
           <Col md={{ span: 6, offset: 3 }}>
             <Card className="text-center">
               <Card.Body>
-                <Card.Title className="mb-3">Sign In</Card.Title>
+                <img
+                  src="/images/holoholona-logo.png"
+                  width="200"
+                  height="200"
+                  className="d-inline-block align-top"
+                  alt=""
+                />
+                <br /><br />
+                <Card.Title className="mb-3">Admin Sign In</Card.Title>
                 {error === '' ? (
                   ''
                 ) : (
@@ -74,7 +82,7 @@ const Signin = ({ location }) => {
                 </Form>
                 <hr />
                 <Card.Text>
-                  <Link to="/signup">Dont have an account?</Link>
+                  <Link to="/checkin">Customer Checking In?</Link>
                 </Card.Text>
               </Card.Body>
             </Card>

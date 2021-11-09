@@ -14,13 +14,22 @@ const NavBar = ({ currentUser }) => (
   <Navbar bg="primary" variant='dark'>
     <Container>
       <Navbar.Brand id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/" expand="lg">
-        Animal Quarantine - Pet Pickup
+        <img
+          src="/images/holoholona-logo.png"
+          width="35"
+          height="35"
+          className="d-inline-block align-top"
+          alt=""
+        />{' '}
+        Holoholona
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="basic-navbar-nav">
         <Nav className="me-auto">
           {(
-            [<Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_CHECK_INS} as={NavLink} activeClassName="active" 
+            [<Nav.Link id={COMPONENT_IDS.NAVBAR_CHECK_IN} as={NavLink} activeClassName="active"
+              exact to="/checkin" key='view'>Check-In</Nav.Link>,
+            <Nav.Link id={COMPONENT_IDS.NAVBAR_VIEW_CHECK_INS} as={NavLink} activeClassName="active"
               exact to="/view" key='view'>View Check-Ins</Nav.Link>]
           )}
           {/* {currentUser ? (
@@ -36,16 +45,21 @@ const NavBar = ({ currentUser }) => (
         </Nav>
         {currentUser === '' ? (
           <Nav className="float-end">
-            <NavDropdown title="Sign In " align='end'>
-              <NavDropdown.Item as={NavLink} exact to="/signin" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN}>
-                <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} />
-                &nbsp;Sign In
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} exact to="/signup" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP}>
-                <BSIcon icon={{ name: 'person-plus', width: 16, height: 16 }} />
-                &nbsp;Sign Up
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} as={NavLink} activeClassName="active"
+              exact to="/signin" key='view'>
+              Admin Sign In&nbsp;
+              <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} />
+            </Nav.Link>
+            {/* <NavDropdown title="Sign In " align='end'> */}
+            {/*  <NavDropdown.Item as={NavLink} exact to="/signin" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN}> */}
+            {/*    <BSIcon icon={{ name: 'box-arrow-in-right', width: 16, height: 16 }} /> */}
+            {/*    &nbsp;Sign In */}
+            {/*  </NavDropdown.Item> */}
+            {/*  <NavDropdown.Item as={NavLink} exact to="/signup" id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP}> */}
+            {/*    <BSIcon icon={{ name: 'person-plus', width: 16, height: 16 }} /> */}
+            {/*    &nbsp;Sign Up */}
+            {/*  </NavDropdown.Item> */}
+            {/* </NavDropdown> */}
           </Nav>
         ) : (
           <Nav className="float-end">

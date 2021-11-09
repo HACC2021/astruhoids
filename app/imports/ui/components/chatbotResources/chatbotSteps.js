@@ -51,7 +51,7 @@ const chatbotSteps = [
     component: (
       <div>
         <ol>
-          <li>Fill out the <Link to='/'>check-in form</Link>. This will let us know that you are here.</li>
+          <li>Fill out the <Link to='/checkin'>check-in form</Link>. This will let us know that you are here.</li>
           <li>Pets go through inspection in the order they have arrived.</li>
           <li>When your pet is ready, we will send you an email or give you a call.</li>
         </ol>
@@ -63,7 +63,7 @@ const chatbotSteps = [
     id: 8,
     component: (
       <div>
-        Go to the <Link to='/'>check-ins page</Link> or check the TV for your check-in ID
+        Go to the <Link to='/view'>check-ins page</Link> or check the TV for your check-in ID
       </div>
     ),
     trigger: 6,
