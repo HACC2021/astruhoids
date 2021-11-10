@@ -27,7 +27,7 @@ If all goes well, the application will appear at [http://localhost:3000](http://
 
 ### Application Design
 
-Holoholona is based upon MATRP which is an extension of [meteor-application-template-react](https://ics-software-engineering.github.io/meteor-application-template-react/).
+Holoholona is based upon [MATRP](https://ics-software-engineering.github.io/matrp/) which is an extension of [meteor-application-template-react](https://ics-software-engineering.github.io/meteor-application-template-react/).
 
 ## Security Privacy
 Our app includes a form that anyone can fill out and submit and one of the submitted fields is publicly available to see. This does create a concern for XSS if someone were to try to embed a malicious script in this publicly accessible field. However, React does take care of this for us since it auto-escapes displayed text. E.g., if someone were to attempt to embed <script> tags, they would not be interpreted as such.
