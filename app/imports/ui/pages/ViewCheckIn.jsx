@@ -60,7 +60,7 @@ const ViewCheckIn = ({ ready, checkIns, isAdmin }) => {
                     checkIns.map((entry) => <ViewCheckInRow key={entry._id} ownerInfo={entry} />)
                   ) : (
                     <tr>
-                      <td className="h5">
+                      <td className="h5 text-center" colSpan="4">
                         There is no one currently checked-in
                       </td>
                     </tr>
