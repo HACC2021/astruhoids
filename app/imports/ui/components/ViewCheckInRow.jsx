@@ -47,7 +47,11 @@ const ViewCheckInRow = ({ ownerInfo }) => {
         <Row sm>
           <Col sm>
             <div className={`td-padding ${canPickup ? 'fw-bold' : ''}`}>
-              {ownerID}
+              {(isAdmin) ? (
+                `${ownerInfo.firstName} ${ownerInfo.lastName}`
+              ) : (
+                ownerID
+              )}
             </div>
           </Col>
           {(canPickup) ? (

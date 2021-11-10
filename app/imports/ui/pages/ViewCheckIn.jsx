@@ -39,7 +39,15 @@ const ViewCheckIn = ({ ready, checkIns, isAdmin }) => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th className="h4">Check-in ID</th>
+                    <th className="h4">
+                      {(isAdmin) ? (
+                        // Show owner full name if admin
+                        "Owner Name"
+                      ) : (
+                        // Show check-in ID if not admin
+                        "Check-in ID"
+                      )}
+                    </th>
                     {(isAdmin) ? (
                       // Add extra table headers for viewing email, phone number, and options if admin
                       <>
