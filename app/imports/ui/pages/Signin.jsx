@@ -22,7 +22,7 @@ const Signin = ({ location }) => {
     e.preventDefault();
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
-        setError(err.reason);
+        setError('Incorrect login');
       } else {
         setError('');
         setRedirectToReferer(true);

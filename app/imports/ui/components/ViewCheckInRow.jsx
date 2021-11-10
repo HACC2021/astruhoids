@@ -12,7 +12,7 @@ import { animalReadyEmail } from '../utilities/EmailTemplates';
 /** Renders a single row in the ViewCheckIns table. */
 const ViewCheckInRow = ({ ownerInfo }) => {
   // Owner ID as seen on the /view table
-  const ownerID = `${ownerInfo.firstName}-${ownerInfo._id.substring(0, 4)}`;
+  const ownerID = `${ownerInfo.firstName}${ownerInfo.lastName.charAt(0)}-${ownerInfo._id.substring(0, 4)}`;
 
   // If the owner's pet has been cleared for pickup
   const canPickup = ownerInfo.status === 'Ready for pickup';
@@ -121,6 +121,7 @@ ViewCheckInRow.propTypes = {
   ownerInfo: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
     email: PropTypes.string,
     phoneNumber: PropTypes.string,
     status: PropTypes.string,

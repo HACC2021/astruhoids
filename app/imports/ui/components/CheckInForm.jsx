@@ -9,7 +9,8 @@ import { checkedInEmail } from '../utilities/EmailTemplates';
 
 const CheckInForm = () => {
   const [number, setNumber] = useState('');
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [checkInID, setCheckInID] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
@@ -29,14 +30,14 @@ const CheckInForm = () => {
   const submitHandler = (form) => {
     form.preventDefault();
 
-    const definitionData = { firstName: name, email, phoneNumber: number };
+    const definitionData = { firstName, lastName, email, phoneNumber: number };
     const collectionName = CheckIn.getCollectionName();
 
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(e => swal('Error', e.message, 'error'))
       .then((_id) => {
         // Set checkInID to be passed when redirecting
-        setCheckInID(`${name}-${_id.substring(0, 4)}`);
+        setCheckInID(`${firstName}${lastName.charAt(0)}-${_id.substring(0, 4)}`);
         swal('Success', 'You have been checked in', 'success');
         setRedirectTo(true);
       });
@@ -45,7 +46,7 @@ const CheckInForm = () => {
       to: email,
       from: 'astruhoids@gmail.com',
       subject: 'Department of Agriculture',
-      html: checkedInEmail(name, number),
+      html: checkedInEmail(firstName, number),
     });
   };
 
@@ -67,17 +68,29 @@ const CheckInForm = () => {
             <Card.Body>
               <Form onSubmit={(e) => submitHandler(e)}>
                 <Row>
-                  <Form.Group className='mb-3' as={Col} md={4} >
+                  <Form.Group className='mb-3' as={Col} md={6} >
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
                       required
                       type='text'
                       placeholder='FirstName'
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </Form.Group>
-                  <Form.Group className='mb-3' as={Col} md={4} >
+                  <Form.Group className='mb-3' as={Col} md={6} >
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      required
+                      type='text'
+                      placeholder='LastName'
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </Form.Group>
+                </Row>
+                <Row>
+                  <Form.Group className='mb-3' as={Col} md={6} >
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                       required
@@ -87,7 +100,7 @@ const CheckInForm = () => {
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </Form.Group>
-                  <Form.Group className='mb-3' as={Col} md={4} >
+                  <Form.Group className='mb-3' as={Col} md={6} >
                     <Form.Label>Phone</Form.Label>
                     <Form.Control
                       required
@@ -99,9 +112,6 @@ const CheckInForm = () => {
                       onChange={e => phoneNumberHandler(e.target.value)}
                     />
                   </Form.Group>
-                </Row>
-                <Row>
-
                 </Row>
                 <Button variant="primary" type="submit">
                   Submit

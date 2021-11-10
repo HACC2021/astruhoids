@@ -13,6 +13,7 @@ class CheckinCollection extends BaseCollection {
   constructor() {
     super('CheckIn', new SimpleSchema({
       firstName: String,
+      lastName: String,
       phoneNumber: String,
       email: String,
       status: {
@@ -26,14 +27,16 @@ class CheckinCollection extends BaseCollection {
   /**
    * Defines a new Checkin info.
    * @param firstName the name of the owner.
+   * @param lastName the name of the owner.
    * @param phoneNumber the owner's phone number.
    * @param email the owner's email.
    * @param status the status.
    * @return {String} the docID of the new document.
    */
-  define({ firstName, phoneNumber, email, status }) {
+  define({ firstName, lastName, phoneNumber, email, status }) {
     const docID = this._collection.insert({
       firstName,
+      lastName,
       phoneNumber,
       email,
       status,
@@ -45,14 +48,18 @@ class CheckinCollection extends BaseCollection {
    * Updates the given document.
    * @param docID the id of the document to update.
    * @param firstName the new owner's name (optional).
+   * @param lastName the new owner's name (optional).
    * @param phoneNumber the new phoneNumber (optional).
    * @param email the new email (optional).
    * @param status the status (optional).
    */
-  update(docID, { firstName, phoneNumber, email, status }) {
+  update(docID, { firstName, lastName, phoneNumber, email, status }) {
     const updateData = {};
     if (firstName) {
       updateData.firstName = firstName;
+    }
+    if (lastName) {
+      updateData.lastName = lastName;
     }
     if (phoneNumber) {
       updateData.phoneNumber = phoneNumber;
@@ -118,15 +125,16 @@ class CheckinCollection extends BaseCollection {
   /**
    * Returns an object representing the definition of docID in a format appropriate to the restoreOne or define function.
    * @param docID
-   * @return {{ firstName, phoneNumber, email }}
+   * @return {{ firstName, lastName, phoneNumber, email, status }}
    */
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const firstName = doc.firstName;
+    const lastName = doc.lastName;
     const phoneNumber = doc.phoneNumber;
     const email = doc.email;
     const status = doc.status;
-    return { firstName, phoneNumber, email, status };
+    return { firstName, lastName, phoneNumber, email, status };
   }
 }
 
