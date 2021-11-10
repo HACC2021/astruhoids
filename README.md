@@ -8,7 +8,7 @@
 * [Team](#team)
 
 ## About
-Holoholona is a check-in application for the Hawai'i Department of Agriculture (H.D.O.A) where pet owners can check in without needing an account. After Owners check-in with our application, they will receive an email notification and another once their pet is ready for pick-up. In addition, we have a chatbot where pet owners can ask general questions about to use our application.
+Holoholona is a check-in application for the Hawai'i Department of Agriculture (H.D.O.A) where pet owners can check in without needing an account. After Owners check-in with our application, they will receive an email notification and another once their pet is ready for pick-up. In addition, we have a chatbot where pet owners can ask general questions about the use of our application.
 
 ## Links
 - [Astruhoids Repository](https://github.com/HACC2021/astruhoids)
@@ -27,7 +27,7 @@ If all goes well, the application will appear at [http://localhost:3000](http://
 
 ### Application Design
 
-Boogie Boarders is based upon [meteor-application-template-react](https://ics-software-engineering.github.io/meteor-application-template-react/) and [meteor-example-form-react](https://ics-software-engineering.github.io/meteor-example-form-react/). Please use the videos and documentation at those sites to better acquaint yourself with the basic application design and form processing in Boogie Boarders.
+Holoholona is based upon MATRP extension of [meteor-application-template-react](https://ics-software-engineering.github.io/meteor-application-template-react/).
 
 ## Security Privacy
 Our app includes a form that anyone can fill out and submit and one of the submitted fields is publicly available to see. This does create a concern for XSS if someone were to try to embed a malicious script in this publicly accessible field. However, React does take care of this for us since it auto-escapes displayed text. E.g., if someone were to attempt to embed <script> tags, they would not be interpreted as such.
