@@ -41,6 +41,14 @@ const Signup = ({ location }) => {
           <Col md={{ span: 6, offset: 3 }}>
             <Card className="text-center">
               <Card.Body>
+                <img
+                  src="/images/holoholona-logo.png"
+                  width="200"
+                  height="200"
+                  className="d-inline-block align-top"
+                  alt=""
+                />
+                <br /><br />
                 <Card.Title className="mb-3">Sign Up</Card.Title>
                 {error === '' ? (
                   ''

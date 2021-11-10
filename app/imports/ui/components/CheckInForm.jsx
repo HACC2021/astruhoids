@@ -55,7 +55,7 @@ const CheckInForm = () => {
     // return <Redirect to={'/successfulcheckin'} useState/>;
     return <Redirect to={{
       pathname: '/successfulcheckin',
-      state: { checkInID: checkInID },
+      state: { checkInID: checkInID, email: email, phone: number },
     }}/>;
   }
 
