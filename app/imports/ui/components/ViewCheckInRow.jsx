@@ -25,7 +25,7 @@ const ViewCheckInRow = ({ ownerInfo }) => {
     const updateData = { id: ownerInfo._id, status: 'Ready for pickup' };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Owner will be notified', `Notification will be sent to "${ownerID}"`, 'success'));
+      .then(() => swal('Owner will be notified', `Notification will be sent to "${ownerInfo.email}"`, 'success'));
     Meteor.call('sendEmail', {
       to: ownerInfo.email,
       from: 'astruhoids@gmail.com',

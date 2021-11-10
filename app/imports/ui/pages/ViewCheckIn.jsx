@@ -90,7 +90,7 @@ export default withTracker(() => {
 
   // If user is admin, get all fields from Mongo
   // If no user is logged in or user is not admin, only fetch fields '_id' and 'firstName'
-  const selectFields = (isAdmin) ? {} : { '_id': 1, 'firstName': 1, 'status': 1 };
+  const selectFields = (isAdmin) ? {} : { '_id': 1, 'firstName': 1, 'status': 1, 'lastName': 1 };
 
   const checkIns = CheckIn.find({}, {
     // Sort by firstName
