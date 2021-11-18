@@ -44,8 +44,8 @@ const ViewCheckInRow = ({ ownerInfo }) => {
   return (
     <tr className={COMPONENT_IDS.VIEW_CHECK_IN_ROW}>
       <td className="h5">
-        <Row sm>
-          <Col sm>
+        <Row sm className="justify-content-between">
+          <Col sm="auto">
             <div className={`td-padding ${canPickup ? 'fw-bold' : ''}`}>
               {(isAdmin) ? (
                 `${ownerInfo.firstName} ${ownerInfo.lastName}`
@@ -56,8 +56,8 @@ const ViewCheckInRow = ({ ownerInfo }) => {
           </Col>
           {(canPickup) ? (
             // Show button to signify that owner can pickup their pet
-            <Col sm>
-              <div className="float-end">
+            <Col sm="auto">
+              <div className="">
                 <Button variant="success" className="no-click">
                   {(isAdmin) ? (
                     // Change button text depending if user is admin or normal user
@@ -74,8 +74,8 @@ const ViewCheckInRow = ({ ownerInfo }) => {
             <>
               {(!isAdmin) ? (
                 // If not ready for pickup, and non-admin, show checked-in status
-                <Col sm>
-                  <div className="float-end">
+                <Col sm="auto">
+                  <div className="">
                     <Button variant="outline-secondary" className="no-click">
                       Checked-in
                     </Button>

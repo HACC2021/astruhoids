@@ -36,7 +36,7 @@ const ViewCheckIn = ({ ready, checkIns, isAdmin }) => {
               </strong></p>
             </Card.Body>
             <Card.Body>
-              <Table striped bordered hover>
+              <Table striped bordered hover responsive>
                 <thead>
                   <tr>
                     <th className="h4">
