@@ -38,7 +38,9 @@ const ViewCheckInRow = ({ ownerInfo }) => {
     const collectionName = CheckIn.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance: ownerInfo._id })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Deletion Success', `Deleted Check-in ID "${ownerID}"`, 'success'));
+      .then(() => swal('Deletion Success',
+        `Deleted Owner-entry "${ownerInfo.firstName} ${ownerInfo.lastName}"`,
+        'success'));
   };
 
   return (
